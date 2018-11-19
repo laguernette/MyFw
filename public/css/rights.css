@@ -1,0 +1,18 @@
+th{
+    text-align: center;
+    vertical-align: center;
+    padding: 0px 5px;
+}
+
+
+.btn_rights{
+    min-width: 52px;
+}
+
+#btn_yesRights{
+    color: #1e7e34;
+}
+
+#btn_noRights{
+    color: #c82333;
+}

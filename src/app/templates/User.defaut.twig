@@ -1,0 +1,50 @@
+{% extends "Login.success.twig" %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    {% if listUsers|length >0 %}
+        <table border="1">
+            <tr><th>Lastname</th><th>Firstname</th><th>Email</th><th>Mot de passe</th><th>Rôle</th><th>Suppression</th></tr>
+            {% for user in listUsers %}
+                <tr>
+                    <td>{{ user.lastname|upper }}</td>
+                    <td>{{ user.firstname|capitalize }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><form action="/users/reinit_password" method="post">
+                            <input type="hidden" name="id" value="{{ user.id }}">
+                            <input type="submit" value="Réinitialisation">
+                        </form>
+                    </td>
+                    <td>
+                        {% if nbAdmin==1 and user.role_id==1 %}
+                            {{ user.role.name }}
+                        {% else %}
+                            <form action="/users/change_role" method="post">
+                                <select name="role_id" size="1">
+                                    {% for role in listRoles %}
+                                        {% if role.name==user.role.name %}
+                                            <option selected value="{{ role.id }}">{{ role.name }}</option>
+                                        {% else %}
+                                            <option value="{{ role.id }}">{{ role.name }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="id" value="{{ user.id }}">
+                                <input type="submit"  value="OK">
+                            </form>
+                        {% endif %}
+                    </td>
+                    <form action="/users/delete" method="post">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <td><input type="submit" value="Suppression"></td>
+                    </form>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        Il n'y a pas de picologues à afficher!
+    {% endif %}
+{% endblock content %}

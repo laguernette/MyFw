@@ -1,0 +1,29 @@
+{% extends "Defaut.defaut.twig" %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    Vos informations personnelles :
+    <hr>
+    <form action="/logon/subscribe" method="post">
+        <div class="form-group">
+            <label for="name">Nom de famille:</label><br>
+            <input type="text" name="userLastname" required minlength="2" size="40">
+        </div>
+        <div class="form-group">
+            <label for="name">Prénom :</label><br>
+            <input type="text" name="userFirstname" required minlength="2" size="40">
+        </div>
+        <div class="form-group">
+            <label for="name">Email :</label><br>
+            <input type="email" name="userEmail" required minlength="5" size="40">
+        </div>
+        <div class="form-group">
+            <label for="name">Mot de passe :</label><br>
+            <input type="password" name="userPwd" required minlength="5" size="40">
+        </div>
+        <input type="submit" value="Envoyer">
+    </form>
+{% endblock content %}

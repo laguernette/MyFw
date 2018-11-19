@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="icon" href="media/favicon.ico"-->
+
+    <title>{{ title }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/public/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/public/css/starter-template.css" rel="stylesheet">
+
+    {% block stylesheets %}{% endblock stylesheets %}
+</head>
+
+<body>
+<!-- Menu -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">{{ nomApp }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            {% block menu %}{% endblock menu %}
+        </ul>
+    </div>
+</nav>
+<!-- Fin Menu -->
+
+<main role="main" class="container">
+    <!-- Alerts -->
+    {% if msgType is defined %}
+        <div class="alert alert-{{ msgType }} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ msgContent }}
+    </div>
+    {%  endif %}
+    <!-- Contenu -->
+    {% block content %}{% endblock content %}
+    <!--
+          <div class="starter-template">
+            <h1>Bootstrap starter template</h1>
+            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+          </div>
+    -->
+    <!-- Fin Contenu -->
+</main><!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/public/js/jquery.slim.js"></script>
+<script src="/public/js/popper.min.js"></script>
+<script src="/public/js/bootstrap.js"></script>
+{% block javascripts %}{% endblock javascripts %}
+</body>
+</html>

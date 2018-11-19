@@ -12,7 +12,8 @@ namespace MyFW\core;
 class Config
 {
     //Application Section
-    const APPNAME = 'MyFW Application';
+    const APPNAME = 'Les Picologues';
+    const APPTITLE = 'Le site des picologues !';
     const APPVER = '1.0';
 
     //Database Section
@@ -20,4 +21,12 @@ class Config
     const DBNAME = 'rest';
     const DBUSER = 'rest';
     const DBPASS = 'tser';
+
+    // Renderer
+    const TEMPLATESSDIR ='c:\uwamp\www\src\app\templates';
+
+    //Nom du profil administrateur
+    const ADMIN='admin';
+
+
 }

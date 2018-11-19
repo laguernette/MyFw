@@ -1,0 +1,116 @@
+{% extends "Login.success.twig" %}
+
+{% block stylesheets %}
+    <link href="public/css/rights.css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    {{  message }}
+    {% if isAuthorized('rights.create') %}
+        <hr>
+        <div>
+        <form action="/rights/createRole" method="post">
+            <label for="name">Nouveau rôle (mini 4 caractères):</label>
+            <input type="text" name="role_name" required minlength="4">
+            <label for="name">Niveau du rôle :</label>
+            <select name="role_level" size="1">
+                {% for level in listLevel %}
+                    <option value="{{ level }}">{{ level }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Ajouter">
+        </form>
+        </div>
+    {% endif %}
+    {% if isAuthorized('rights.modify') %}
+        <hr>
+        <div>
+        <form action="/rights/modifyRole" method="post">
+            <label for="name">Modifier un rôle :</label>
+            {% for role in listRoles %}
+                {% if user_role_level != role.level %}
+                <div>
+                    <input type="text" name="role_name" value="{{ role.name }}" required minlength="4">
+                        <select name="role_level" size="1">
+                            {% for level in listLevel %}
+                                {% if role.level == level %}
+                                    <option selected value="{{ level }}">{{ level }}</option>
+                                {% else %}
+                                    <option value="{{ level }}">{{ level }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    <input type="hidden" name="role_id" value="{{ role.id }}">
+                    <input type="submit" value="Modifier">
+                </div>
+                {% endif %}
+            {% endfor %}
+        </form>
+        </div>
+    {% endif %}
+    {% if isAuthorized('rights.delete') %}
+        <hr>
+        <div>
+        <form action="/rights/deleteRole" method="post">
+            <label for="name">Supprimer un rôle :</label>
+            <select name="role_id" size="1">
+                {% for role in listRoles %}
+                    {% if user_role_level != role.level %}
+                        <option value="{{ role.id }}">{{ role.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <input type="submit" value="supprimer">
+        </form>
+        </div>
+    {% endif %}
+    {% if listRoles|length >0 %}
+        <hr>
+        <table border="1">
+            <tr><th class="permissions">Permissions</th>
+                {% for role in listRoles %}
+                    <th>{{ role.name }}</th>
+                {% endfor %}
+            </tr>               
+            {% for permission in listPermissions %}
+                <tr>
+                    <td>{{ permission.label }}</td>
+                    {% for role in listRoles %}
+                        {% if isAdmin(role.id) %}
+                            <th>
+                                <label id="btn_yesRights">OUI</label>
+                            </th>
+                        {% else %}
+                             <th>
+                                 {% if haveRights(role.id,permission.permission) %}
+                                     {% set nameModule = 'deleteRights' %}
+                                     {% set result = 'OUI' %}
+                                     {% set id_btn = 'btn_yesRights' %}
+                                 {% else %}
+                                     {% set nameModule = 'addRights' %}
+                                     {% set result = 'NON' %}
+                                     {% set id_btn = 'btn_noRights' %}
+                                 {% endif %}
+                                {% if user_role_level == role.level %}
+                                    <label id="{{ id_btn }}">{{ result }}</label>
+                                {% else %}
+                                    <form action="/rights/{{ nameModule }}" method="post">
+                                        <input type="hidden" name="role_id" value="{{ role.id }}">
+                                        <input type="hidden" name="permission_id" value="{{ permission.id }}">
+                                        <input type="submit"  id="{{ id_btn }}" class="btn_rights" value="{{ result }}">
+                                    </form>
+                                {% endif %}
+                             </th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        Il n'y a pas de tableau à afficher !
+    {% endif %}
+{% endblock content %}

@@ -10,31 +10,21 @@ class Launcher
     public static function run(Request $r)
     {
 
-        // démarage de l'ORM Eloquent
-        $capsule = new Capsule;
-        $capsule->addConnection(array(
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'rest',
-            'username' => 'rest',
-            'password' => 'tser',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => ''
-        ));
-        $capsule->bootEloquent();
+        $env = new Context($r);
 
         if ($r->getController() == 'rest') {
-            $controllerName = '\MyFW\App\Controller' . ucfirst($r->getController()) . ucfirst($r->getAction());
+            //Si c'est un controller Rest, on ajoute l'action dans le nom
+            $controllerName = '\MyFW\App\Controllers\Controller' . ucfirst($r->getController()) . ucfirst($r->getAction());
             $methodName = 'defaut';
         } else {
-            $controllerName = '\MyFW\App\Controller' . ucfirst($r->getController());
+            //Si ce n'est pas un controller Rest
+            $controllerName = '\MyFW\App\Controllers\Controller' . ucfirst($r->getController());
             $methodName = $r->getAction();
         }
         if (class_exists($controllerName)) {
             // instanciation du contrôleur
             // Request en paramètre
-            $controller = new $controllerName($r);
+            $controller = new $controllerName($env);
             if (method_exists($controller, $methodName)) {
                 if (isset($r->getArguments()['uri'])) {
                     // avec paramètres

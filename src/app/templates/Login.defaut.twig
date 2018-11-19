@@ -1,0 +1,27 @@
+{% extends "Defaut.defaut.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    <form action="../../../login/submit/index.php" method="POST">
+        <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" name="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" name="password" class="form-control" id="pwd">
+        </div>
+        <div class="form-group form-check">
+            Pas encore inscrit ? <a href="/logon">Inscrivez-vous</a>
+        </div>
+
+        <button type="submit" id="js_btn_alert" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock content %}

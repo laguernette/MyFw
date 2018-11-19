@@ -1,0 +1,21 @@
+{% extends "_layout.twig" %}
+
+{% block javascripts %}
+    <script src="public/js/message.js"></script>
+{% endblock javascripts %}
+
+{% block menu %}
+    <li class="nav-item">
+        {% if isConnected %}
+            <a class="nav-link" href="/login/logout">Se déconnecter</a>
+        {% else %}
+            <a class="nav-link" href="/login">Se connecter</a>
+        {% endif %}
+    </li>
+{% endblock menu %}
+
+{% block content %}
+    {{ msg_accueil }}
+{% endblock content %}
+
+

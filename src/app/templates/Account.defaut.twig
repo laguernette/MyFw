@@ -1,0 +1,28 @@
+{% extends "Login.success.twig" %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    Vos informations personnelles :
+    <hr>
+    <form action="/account/updateUser" method="post">
+        <label for="name">Nom de famille:</label><br>
+        <input type="text" name="userLastname" value="{{ user.lastname|upper }}" required minlength="2" size="40">
+        <br><br>
+        <label for="name">Prénom :</label><br>
+        <input type="text" name="userFirstname" value="{{ user.firstname|capitalize }}" required minlength="2" size="40">
+        <br><br>
+        <label for="name">Email :</label><br>
+        <input type="email" name="userEmail" value="{{ user.email }}" size="40">
+        <br><br>
+        <label for="name">Mot de passe :</label><br>
+        <input type="password" name="userPwd" size="40">
+        <br><br>
+        <label for="name">Rôle : {{ user.role.name }}</label><br>
+        <br>
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="submit" value="Envoyer">
+    </form>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "Defaut.defaut.twig" %}
+
+{% block menu %}
+    {{ parent() }}
+    <li class="nav-item" >
+        <a class="nav-link" href="/account">{{ userFirstname|capitalize }}</a>
+    </li>
+    {% if isAuthorized('users.defaut') %}
+        <li class="nav-item" >
+            <a class="nav-link" href="/users">Gestion des utilisateurs</a>
+        </li>
+    {% endif %}
+    {% if isAuthorized('rights.defaut') %}
+        <li class="nav-item" >
+            <a class="nav-link" href="/rights">Gestion des droits</a>
+        </li>
+    {% endif %}
+{% endblock menu %}
+
+{% block content %}
+    <p>Bonjour, {{ userFirstname }}</p>
+{% endblock content %}
