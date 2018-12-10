@@ -4,5 +4,4 @@ $(document).ready(function(){
         $(".alert").remove();
     }, 4000);
 
-    //alert('loaded');
 });

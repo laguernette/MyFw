@@ -23,7 +23,7 @@ class Config
     const DBPASS = 'tser';
 
     // Renderer
-    const TEMPLATESSDIR ='c:\uwamp\www\src\app\templates';
+    const TEMPLATESSDIR ='c:\uwamp\www_picologues\src\app\templates';
 
     //Nom du profil administrateur
     const ADMIN='admin';

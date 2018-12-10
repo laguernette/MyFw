@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    {{ message }}
+    <hr>
+    {% if users|length >0 %}
+        <table border="1">
+            <tr><th>Lastname</th><th>Firstname</th></tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.lastname|upper }}</td>
+                    <td>{{ user.firstname|capitalize }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        Il n'y a pas de picologues à afficher!
+    {% endif %}
+
+</body>
+</html>
