@@ -1,0 +1,13 @@
+{% extends "Login.success.twig" %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    Nouveau message de : {{ message_writer }}<br>
+    Titre : {{ message_title }}<br>
+    Contenu du message : <br>
+    {{ message_content }}
+
+{% endblock content %}

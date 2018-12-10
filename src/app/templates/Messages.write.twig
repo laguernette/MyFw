@@ -1,0 +1,28 @@
+{% extends "Login.success.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script  src="/public/js/message.write.js"></script>
+{% endblock javascripts %}
+
+{% block menu %}
+    {{ parent() }}
+{% endblock menu %}
+
+{% block content %}
+    Envoyer votre message :
+    <hr>
+    <form id="frmMessage">
+        <label for="name">Mail du destinataire :</label><br>
+        <input type="email" name="msg_reader" required size="40">
+        <br><br>
+        <label for="name">Titre :</label><br>
+        <input type="text" name="msg_title" required minlength="2" size="40">
+        <br><br>
+        <label for="name">Votre message :</label><br>
+        <textarea name="msg_content" placeholder="Entrez votre texte ici" rows="5" cols="44"></textarea>
+        <br><br>
+        <input id="btnMessage" type="button" value="Envoyer">
+    </form>
+
+{% endblock content %}
